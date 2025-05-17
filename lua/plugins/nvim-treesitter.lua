@@ -3,14 +3,11 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
-	dependencies = {
-		"windwp/nvim-ts-autotag",
-	},
 	config = function()
 		local config = require("nvim-treesitter.configs")
 		config.setup({
 			ensure_installed = {
-                "lua",
+				"lua",
 				"bash",
 				"c",
 				"python",
@@ -23,21 +20,21 @@ return {
 				"vim",
 				"vimdoc",
 			},
+			textobjects = {
+				enable = false,
+			},
 			auto_install = true,
 			highlight = { enable = true },
 			indent = { enable = true },
-			autotag = {
-				enable = true,
-			},
-incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<leader>ss", -- set to `false` to disable one of the mappings
-      node_incremental = "<leader>si",
-      scope_incremental = "<leader>sc",
-      node_decremental = "<leader>sd",
-    },
-  },
+			-- incremental_selection = {
+			-- 	enable = true,
+			-- 	keymaps = {
+			-- 		init_selection = "<leader>ss", -- set to `false` to disable one of the mappings
+			-- 		node_incremental = "<leader>si",
+			-- 		scope_incremental = "<leader>sc",
+			-- 		node_decremental = "<leader>sd",
+			-- 	},
+			-- },
 		})
 	end,
 }

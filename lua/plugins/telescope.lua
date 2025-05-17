@@ -1,9 +1,13 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	tag = "0.1.8",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
 	config = function()
-		--Telescope
+		require("telescope").setup({
+			extensions = { fzf = {} },
+		})
+		require("telescope").load_extension("fzf")
+
 		local builtin = require("telescope.builtin")
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
@@ -21,6 +25,10 @@ return {
 		vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 		vim.keymap.set("n", "<leader>sm", builtin.marks, { desc = "[S]earch [M]arks" })
 		vim.keymap.set("n", "<leader>sp", builtin.registers, { desc = "[S]earch / [P]ut registers" })
+
+		vim.keymap.set("n", "<leader>sn", function()
+			builtin.find_files({ cwd = vim.fn.stdpath("config") })
+		end, { desc = "[E]dit [N]eovim config" })
 		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 	end,
 }

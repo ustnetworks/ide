@@ -32,24 +32,21 @@ keymap.set("n", "<leader>dt", function()
 	vim.diagnostic.config({ virtual_text = not config.virtual_text })
 end, { desc = "Toggle Diagnostic virtual text" })
 
-keymap.set({ "n", "v" }, "<leader>lf", function()
-	local conform = require("conform")
-	conform.format({
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 500,
-	})
-end, { desc = "Format Bufer" })
-
 --Scrolling:
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move current line/block down" })
 -- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move current line/block up" })
-vim.cmd("nnoremap <A-j> :m .+1<CR>==")
-vim.cmd("nnoremap <A-k> :m .-2<CR>==")
-vim.cmd("inoremap <A-j> <Esc>:m .+1<CR>==gi")
-vim.cmd("inoremap <A-k> <Esc>:m .-2<CR>==gi")
-vim.cmd("vnoremap <A-j> :m '>+1<CR>gv=gv")
-vim.cmd("vnoremap <A-k> :m '<-2<CR>gv=gv-")
+-- vim.cmd("nnoremap <A-j> :m .+1<CR>==")
+-- vim.cmd("nnoremap <A-k> :m .-2<CR>==")
+-- vim.cmd("inoremap <A-j> <Esc>:m .+1<CR>==gi")
+-- vim.cmd("inoremap <A-k> <Esc>:m .-2<CR>==gi")
+-- vim.cmd("vnoremap <A-j> :m '>+1<CR>gv=gv")
+-- vim.cmd("vnoremap <A-k> :m '<-2<CR>gv=gv-")
+
+keymap.set({ "n", "v" }, "-", function()
+	if not MiniFiles.close() then
+		MiniFiles.open()
+	end
+end, { desc = "Open File Explorer" })

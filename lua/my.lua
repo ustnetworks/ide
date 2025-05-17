@@ -1,4 +1,6 @@
-function InstallMyMasonPackages(package)
+local M = {}
+
+M.InstallMyMasonPackage = function(package)
 	local pkgs = {
 		"eslint-lsp", -- Language Server Protocol implementation for ESLint (JavaScript static code analysis).
 		"eslint_d", -- improve eslint performance
@@ -12,26 +14,26 @@ function InstallMyMasonPackages(package)
 	if package then
 		return vim.cmd("MasonInstall " .. package)
 	end
-	for key, value in ipairs(pkgs) do
+	for _, value in ipairs(pkgs) do
 		vim.cmd("MasonInstall " .. value)
 	end
 end
 
-function GetPythonPath()
+M.GetPythonPath = function()
 	local cmd = "which python"
+	print("hereerererererer")
 	if vim.fn.has("win32") == 1 then
 		cmd = "where python"
 	end
 	local paths = vim.fn.system(cmd)
 	for line in paths:gmatch("([^\n]*)\n?") do
 		if string.len(line) then
-			print(line)
 			return line
 		end
 	end
 end
 
-function InitVSCode(path)
+M.InitVSCode = function(path)
 	if not path then
 		path = vim.fn.getcwd()
 	end
@@ -64,3 +66,5 @@ function InitVSCode(path)
 	file:write(python)
 	file:close()
 end
+
+return M

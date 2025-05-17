@@ -5,20 +5,7 @@ return {
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
-
-			local function get_python_path()
-				local cmd = "which python"
-				if vim.fn.has("win32") == 1 then
-					cmd = "where python"
-				end
-				local paths = vim.fn.system(cmd)
-				for line in paths:gmatch("([^\n]*)\n?") do
-					if string.len(line) then
-						print(line)
-						return line
-					end
-				end
-			end
+			local my = require("my")
 			dap.adapters.python = function(cb, config)
 				if config.request == "attach" then
 					---@diagnostic disable-next-line: undefined-field
@@ -36,7 +23,7 @@ return {
 				else
 					cb({
 						type = "executable",
-						command = get_python_path(),
+						command = my.GetPythonPath(),
 						args = { "-m", "debugpy.adapter" },
 						options = {
 							source_filetype = "python",
