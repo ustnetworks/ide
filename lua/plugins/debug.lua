@@ -65,15 +65,6 @@ return {
 			vim.keymap.set("n", "<Leader>dB", function()
 				dap.set_breakpoint()
 			end, { desc = "Set Breakpoint" })
-			vim.keymap.set("n", "<Leader>lp", function()
-				dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-			end)
-			vim.keymap.set("n", "<Leader>dr", function()
-				dap.repl.open()
-			end, { desc = "Open REPL" })
-			vim.keymap.set("n", "<Leader>dl", function()
-				dap.run_last()
-			end, { desc = "Run Last" })
 		end,
 	},
 }

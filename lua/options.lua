@@ -34,8 +34,8 @@ vim.opt.splitbelow = true
 -- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
--- vim.opt.list = true
--- vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.list = true
+vim.opt.listchars = { eol = "⏎", tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -65,7 +65,7 @@ vim.o.winborder = "rounded"
 -- vim.diagnostic.config({
 -- 	virtual_text = { current_line = true, virtual_lines = true },
 -- })
-vim.diagnostic.config({ virtual_lines = { current_line = true } })
+-- vim.diagnostic.config({ virtual_lines = { current_line = true } })
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.opt.incsearch = true

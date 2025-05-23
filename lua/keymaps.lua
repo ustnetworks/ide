@@ -11,26 +11,83 @@ keymap.set("n", "<leader>wq", ":wq<CR>") -- save and quit
 keymap.set("n", "<leader>qq", ":q!<CR>") -- quit without saving
 keymap.set("n", "<leader>ww", ":w<CR>") -- save
 
--- move current line / block with Alt-j/k similar to vscode.
--- vim.keymap.set("n", "<A-j>", ":m .+1<cr>==", { desc = "Move current line/block down" })
--- vim.keymap.set("n", "<A-k>", ":m .-2<cr>==", { desc = "Move current line/block up" })
--- vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<cr>==gi", { desc = "Move current line/block down" })
--- vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<cr>==gi", { desc = "Move current line/block up" })
--- vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move current line/block down" })
--- vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move current line/block down" })
-
 --Buffer related
 vim.keymap.set("n", "<leader>n", ":bn<cr>", { desc = "Go to next buffer in buffer list" })
 vim.keymap.set("n", "<leader>p", ":bp<cr>", { desc = "Go to next buffer in buffer list" })
-vim.keymap.set("n", "<leader>x", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
+-- vim.keymap.set("n", "<leader>x", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
 
+-------------------------------------------------------------------------------
+----------------------------------------TERMINAL MAPS--------------------------
+-------------------------------------------------------------------------------
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-keymap.set("n", "<leader>dt", function()
-	config = vim.diagnostic.config()
-	vim.diagnostic.config({ virtual_text = not config.virtual_text })
-end, { desc = "Toggle Diagnostic virtual text" })
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+	callback = function()
+		vim.opt.number = false
+		vim.opt.relativenumber = false
+	end,
+})
+keymap.set("n", "<leader>td", function()
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("J")
+	vim.cmd(":startinsert")
+end, { desc = "[Terminal] [D]own" })
+
+keymap.set("n", "<leader>tr", function()
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("L")
+	vim.cmd(":startinsert")
+end, { desc = "[Terminal] [L]eft" })
+
+keymap.set("n", "<leader>ts", function()
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 10)
+	vim.cmd(":startinsert")
+end, { desc = "[Terminal] [Small]" })
+
+-------------------------------------------------------------------------------
+----------------------------------------LSP------------------------------------
+-------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+	callback = function()
+		keymap.set("n", "<leader>ld", function()
+			vim.lsp.buf.definition()
+		end, { desc = "Go to [D]efinition" })
+		keymap.set("n", "<leader>lr", function()
+			vim.lsp.buf.references()
+		end, { desc = "List [R]eferences" })
+		keymap.set("n", "<leader>ln", function()
+			vim.lsp.buf.rename()
+		end, { desc = "[R]ename [R]eferences" })
+
+		keymap.set("n", "<leader>lx", function()
+			vim.cmd(":Trouble diagnostics toggle filter.buf=0")
+		end, { desc = "Diagnostics (Buffer)" })
+
+		keymap.set("n", "<leader>lX", function()
+			vim.cmd(":Trouble diagnostics toggle")
+		end, { desc = "Diagnostics (All)" })
+
+		keymap.set("n", "<leader>ls", function()
+			vim.cmd(":Trouble symbols toggle")
+		end, { desc = "Document Symbols" })
+
+		keymap.set("n", "<leader>lf", function()
+			vim.lsp.buf.format()
+		end, { desc = "[F]ormat Document" })
+
+		keymap.set("n", "<leader>lv", function()
+			config = vim.diagnostic.config()
+			vim.diagnostic.config({ virtual_text = not config.virtual_text })
+		end, { desc = "Diagnostic virtual text" })
+	end,
+})
 
 --Scrolling:
 keymap.set("n", "<C-d>", "<C-d>zz")

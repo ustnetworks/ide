@@ -1,5 +1,13 @@
 local M = {}
 
+vim.api.nvim_create_user_command("MyInstallMasonPackage", function(args)
+	M.InstallMyMasonPackage(args["args"])
+end, { desc = "Install Mason Package(s)", nargs = "*" })
+
+vim.api.nvim_create_user_command("MyInitVSCode", function(args)
+	M.InitVSCode(args["args"])
+end, { desc = "Init .vscode launch file", nargs = "*" })
+
 M.InstallMyMasonPackage = function(package)
 	local pkgs = {
 		"eslint-lsp", -- Language Server Protocol implementation for ESLint (JavaScript static code analysis).
@@ -34,7 +42,7 @@ M.GetPythonPath = function()
 end
 
 M.InitVSCode = function(path)
-	if not path then
+	if path == nil or path == "" then
 		path = vim.fn.getcwd()
 	end
 
@@ -62,9 +70,14 @@ M.InitVSCode = function(path)
 		vim.fn.system("mkdir -p " .. path)
 	end
 	path = path .. "launch.json"
-	file = io.open(path, "w")
-	file:write(python)
-	file:close()
+	print("Path is:" .. path)
+	local file = io.open(path, "w")
+	if file then
+		file:write(python)
+		file:close()
+	else
+		print("ERROR: Writing " .. path)
+	end
 end
 
 return M
