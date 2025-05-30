@@ -50,7 +50,15 @@ return {
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
 				default = { "lsp", "path", "snippets", "lazydev", "buffer" },
+				per_filetype = { mysql = { "dadbod" }, sql = { "dadbod" } },
 				providers = {
+
+					dadbod = {
+						name = "[DB]",
+						module = "vim_dadbod_completion.blink",
+						min_keyword_length = 2,
+						score_offset = 85,
+					},
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",

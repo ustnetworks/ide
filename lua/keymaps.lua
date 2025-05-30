@@ -7,18 +7,17 @@ keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window"
 
 -- General keymaps
 keymap.set("i", "jk", "<ESC>") -- exit insert mode with jk
-keymap.set("n", "<leader>wq", ":wq<CR>") -- save and quit
-keymap.set("n", "<leader>qq", ":q!<CR>") -- quit without saving
-keymap.set("n", "<leader>ww", ":w<CR>") -- save
 
 --Buffer related
-vim.keymap.set("n", "<leader>n", ":bn<cr>", { desc = "Go to next buffer in buffer list" })
-vim.keymap.set("n", "<leader>p", ":bp<cr>", { desc = "Go to next buffer in buffer list" })
--- vim.keymap.set("n", "<leader>x", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
+vim.keymap.set("n", "<leader>bn", ":bn<cr>", { desc = "Go to next buffer in buffer list" })
+vim.keymap.set("n", "<leader>bp", ":bp<cr>", { desc = "Go to next buffer in buffer list" })
+vim.keymap.set("n", "<leader>bx", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
+keymap.set("n", "<leader>bw", ":w<CR>", { desc = "Write current buffer" })
 
 -- Prevent deleting from also copying
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
 vim.keymap.set("n", "dd", '"_dd', { noremap = true })
+
 -------------------------------------------------------------------------------
 ----------------------------------------TERMINAL MAPS--------------------------
 -------------------------------------------------------------------------------
@@ -57,26 +56,47 @@ end, { desc = "[Terminal] [Small]" })
 ----------------------------------------LSP------------------------------------
 -------------------------------------------------------------------------------
 
-keymap.set("n", "<leader>dt", function()
-	config = vim.diagnostic.config()
-	vim.diagnostic.config({ virtual_text = not config.virtual_text })
-end, { desc = "Toggle Diagnostic virtual text" })
-
 --Scrolling:
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
-
--- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move current line/block down" })
--- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move current line/block up" })
--- vim.cmd("nnoremap <A-j> :m .+1<CR>==")
--- vim.cmd("nnoremap <A-k> :m .-2<CR>==")
--- vim.cmd("inoremap <A-j> <Esc>:m .+1<CR>==gi")
--- vim.cmd("inoremap <A-k> <Esc>:m .-2<CR>==gi")
--- vim.cmd("vnoremap <A-j> :m '>+1<CR>gv=gv")
--- vim.cmd("vnoremap <A-k> :m '<-2<CR>gv=gv-")
 
 keymap.set({ "n", "v" }, "-", function()
 	if not MiniFiles.close() then
 		MiniFiles.open()
 	end
 end, { desc = "Open File Explorer" })
+
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+	callback = function()
+		keymap.set("n", "<leader>ld", function()
+			vim.lsp.buf.definition()
+		end, { desc = "Go to [D]efinition" })
+		keymap.set("n", "<leader>lr", function()
+			vim.lsp.buf.references()
+		end, { desc = "List [R]eferences" })
+		keymap.set("n", "<leader>ln", function()
+			vim.lsp.buf.rename()
+		end, { desc = "[R]ename [R]eferences" })
+
+		keymap.set("n", "<leader>lx", function()
+			vim.cmd(":Trouble diagnostics toggle filter.buf=0")
+		end, { desc = "Diagnostics (Buffer)" })
+
+		keymap.set("n", "<leader>lX", function()
+			vim.cmd(":Trouble diagnostics toggle")
+		end, { desc = "Diagnostics (All)" })
+
+		keymap.set("n", "<leader>ls", function()
+			vim.cmd(":Trouble symbols toggle")
+		end, { desc = "Document Symbols" })
+
+		keymap.set("n", "<leader>lf", function()
+			vim.lsp.buf.format()
+		end, { desc = "[F]ormat Document" })
+
+		keymap.set("n", "<leader>lv", function()
+			local config = vim.diagnostic.config() or true
+			vim.diagnostic.config({ virtual_text = not config.virtual_text })
+		end, { desc = "Diagnostic virtual text" })
+	end,
+})
