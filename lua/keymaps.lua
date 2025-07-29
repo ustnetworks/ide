@@ -12,8 +12,8 @@ keymap.set("i", "jk", "<ESC>") -- exit insert mode with jk
 vim.keymap.set("n", "<leader>bn", ":bn<cr>", { desc = "Go to next buffer in buffer list" })
 vim.keymap.set("n", "<leader>bp", ":bp<cr>", { desc = "Go to next buffer in buffer list" })
 vim.keymap.set("n", "<leader>bx", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
-keymap.set("n", "<leader>bw", ":w<CR>", { desc = "Write current buffer" })
-
+vim.keymap.set("n", "<leader>bw", ":w<cr>", { desc = "Write current buffer" })
+vim.keymap.set("n", "<leader>by", ":set wrap!<cr>", { desc = "Toggle line wrapping" })
 -- Prevent deleting from also copying
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
 vim.keymap.set("n", "dd", '"_dd', { noremap = true })
