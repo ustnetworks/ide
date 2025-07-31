@@ -14,6 +14,8 @@ vim.keymap.set("n", "<leader>bp", ":bp<cr>", { desc = "Go to next buffer in buff
 vim.keymap.set("n", "<leader>bx", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
 vim.keymap.set("n", "<leader>bw", ":w<cr>", { desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>by", ":set wrap!<cr>", { desc = "Toggle line wrapping" })
+vim.keymap.set("n", "<leader>bz", ":tabedit %<cr>", { desc = "Zen Mode Enter - new tab" })
+vim.keymap.set("n", "<leader>br", ":tabclose<cr>", { desc = "Zen Mode exit - close tab tab" })
 -- Prevent deleting from also copying
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
 vim.keymap.set("n", "dd", '"_dd', { noremap = true })
