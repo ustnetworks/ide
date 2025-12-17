@@ -11,7 +11,7 @@ return {
 		-- Define your formatters
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "ruff_format" },
+			python = { "ruff_format", "ruff_fix" },
 			javascript = { "prettierd", stop_after_first = true },
 			html = { "prettierd" },
 		},
