@@ -7,7 +7,7 @@ keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window"
 
 -- General keymaps
 keymap.set("i", "jk", "<ESC>") -- exit insert mode with jk
-
+keymap.set("n", "<leader>be", ":vsp<cr>:term python %:p<cr>", { desc = "Execute run.bat shell script" })
 --Buffer related
 vim.keymap.set("n", "<leader>bn", ":bn<cr>", { desc = "Go to next buffer in buffer list" })
 vim.keymap.set("n", "<leader>bp", ":bp<cr>", { desc = "Go to next buffer in buffer list" })
