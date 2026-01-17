@@ -7,5 +7,6 @@ return {
 		require("mini.move").setup()
 		require("mini.indentscope").setup()
 		require("mini.files").setup()
+		require("mini.animate").setup({ scroll = { enable = false }, cursor = { enable = false } })
 	end,
 }
