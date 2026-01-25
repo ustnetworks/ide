@@ -5,11 +5,6 @@ return {
 	config = function()
 		require("telescope").setup({
 			extensions = { fzf = {} },
-			defaults = {
-				preview = {
-					treesitter = false,
-				},
-			},
 		})
 		require("telescope").load_extension("fzf")
 
