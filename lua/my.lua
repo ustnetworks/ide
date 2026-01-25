@@ -1,5 +1,9 @@
 local M = {}
 
+vim.api.nvim_create_user_command("MyTreesitter", function()
+	M.MyTreesitter()
+end, { desc = "Setup treesiter", nargs = "*" })
+
 vim.api.nvim_create_user_command("MyInstallMasonPackage", function(args)
 	M.InstallMyMasonPackage(args["args"])
 end, { desc = "Install Mason Package(s)", nargs = "*" })
@@ -7,6 +11,11 @@ end, { desc = "Install Mason Package(s)", nargs = "*" })
 vim.api.nvim_create_user_command("MyInitVSCode", function(args)
 	M.InitVSCode(args["args"])
 end, { desc = "Init .vscode launch file", nargs = "*" })
+
+M.MyTreesitter = function()
+	local ts = require("nvim-treesitter")
+	ts.install({ "python", "javascript", "lua", "bash", "c", "html", "css", "markdown" })
+end
 
 M.InstallMyMasonPackage = function(package)
 	local pkgs = {
@@ -19,10 +28,8 @@ M.InstallMyMasonPackage = function(package)
 		"stylua", -- Formatter for Lua
 		"typescript-language-server", --TypeScript & JavaScript Language Server
 	}
-	if package then
-		return vim.cmd("MasonInstall " .. package)
-	end
 	for _, value in ipairs(pkgs) do
+		print("installing....=" .. value)
 		vim.cmd("MasonInstall " .. value)
 	end
 end

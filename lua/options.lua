@@ -80,5 +80,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 --
+-- nvim-treesitter:
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "python", "javascript", "html", "css", "c", "bash", "markdown" },
+	callback = function()
+		-- syntax highlighting, provided by Neovim
+		vim.treesitter.start()
+		-- folds, provided by Neovim
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		vim.wo.foldmethod = "expr"
+		-- indentation, provided by nvim-treesitter
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
 
 vim.o.timeoutlen = 1000
