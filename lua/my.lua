@@ -13,8 +13,10 @@ vim.api.nvim_create_user_command("MyInitVSCode", function(args)
 end, { desc = "Init .vscode launch file", nargs = "*" })
 
 M.MyTreesitter = function()
-	local ts = require("nvim-treesitter")
-	ts.install({ "python", "javascript", "lua", "bash", "c", "html", "css", "markdown" })
+	local parsers = { "python", "javascript", "lua", "bash", "c", "html", "css", "markdown" }
+	for _, value in ipairs(parsers) do
+		vim.cmd("TSInstall " .. value)
+	end
 end
 
 M.InstallMyMasonPackage = function(package)
