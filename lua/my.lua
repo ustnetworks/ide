@@ -29,6 +29,7 @@ M.InstallMyMasonPackage = function(package)
 		"ruff", -- LSP + Linter for python
 		"stylua", -- Formatter for Lua
 		"typescript-language-server", --TypeScript & JavaScript Language Server
+		"bash-language-server", --Bash shell
 	}
 	for _, value in ipairs(pkgs) do
 		print("installing....=" .. value)
