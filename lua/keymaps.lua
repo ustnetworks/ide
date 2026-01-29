@@ -12,6 +12,7 @@ keymap.set("n", "<leader>be", ":vsp<cr>:term python %:p<cr>", { desc = "Execute 
 vim.keymap.set("n", "<leader>bn", ":bn<cr>", { desc = "Go to next buffer in buffer list" })
 vim.keymap.set("n", "<leader>bp", ":bp<cr>", { desc = "Go to next buffer in buffer list" })
 vim.keymap.set("n", "<leader>bx", ":bd<cr>", { desc = "Unload buffer and delete buffer" })
+vim.keymap.set("n", "<leader>bq", ":bd<cr>", { desc = "Quit Window. Prompt for unsaved" })
 vim.keymap.set("n", "<leader>bc", ":bp|bd#<cr>", { desc = "Delete buffer and move previous one buffer" })
 vim.keymap.set("n", "<leader>bw", ":w<cr>", { desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>by", ":set wrap!<cr>", { desc = "Toggle line wrapping" })
