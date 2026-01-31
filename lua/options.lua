@@ -57,7 +57,8 @@ vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 vim.opt.foldcolumn = "1"
-
+vim.opt.termguicolors = true⏎
+vim.opt.foldlevel = 99
 -- sets the default border for all floating windows
 vim.o.winborder = "rounded"
 
