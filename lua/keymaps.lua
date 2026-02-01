@@ -21,7 +21,8 @@ vim.keymap.set("n", "<leader>br", ":tabclose<cr>", { desc = "Zen Mode exit - clo
 -- Prevent deleting from also copying
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
 vim.keymap.set("n", "dd", '"_dd', { noremap = true })
-
+vim.keymap.set("i", "<A-l>", "<right>", { noremap = true })
+vim.keymap.set("i", "<A-h>", "<left>", { noremap = true })
 -------------------------------------------------------------------------------
 ----------------------------------------TERMINAL MAPS--------------------------
 -------------------------------------------------------------------------------
