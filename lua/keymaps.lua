@@ -28,7 +28,9 @@ vim.keymap.set("i", "<C-h>", "<left>", { noremap = true })
 -------------------------------------------------------------------------------
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+keymap.set("t", "<esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+keymap.set("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
 	callback = function()
@@ -36,26 +38,51 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.opt.relativenumber = false
 	end,
 })
-keymap.set("n", "<leader>td", function()
-	vim.cmd.vnew()
-	vim.cmd.term()
-	vim.cmd.wincmd("J")
-	vim.cmd(":startinsert")
-end, { desc = "[Terminal] [D]own" })
 
-keymap.set("n", "<leader>tr", function()
-	vim.cmd.vnew()
-	vim.cmd.term()
-	vim.cmd.wincmd("L")
-	vim.cmd(":startinsert")
-end, { desc = "[Terminal] [L]eft" })
-keymap.set("n", "<leader>ts", function()
-	vim.cmd.vnew()
-	vim.cmd.term()
-	vim.cmd.wincmd("J")
-	vim.api.nvim_win_set_height(0, 10)
-	vim.cmd(":startinsert")
-end, { desc = "[Terminal] [Small]" })
+local create_terminal_keymap = function(term_type)
+	local desc = "Put [T]erminal window on the [R]ight"
+	local leader_key = "<leader>tr"
+	local move_to_wincmd = "L" --move to the right
+	local is_mini = false
+	local vim_mode = { "n" }
+	if term_type == "MINI" then
+		is_mini = true
+		desc = "Put [M]ini terminal at the bottom"
+		leader_key = "<leader>tm"
+		move_to_wincmd = "J"
+	end
+	if term_type == "LEFT" then
+		desc = "Put [T]erminal window on the [L]eft"
+		leader_key = "<leader>tl"
+		move_to_wincmd = "H"
+	end
+
+	if term_type == "TOP" then
+		desc = "Put [T]erminal window on [T]op"
+		leader_key = "<leader>tt"
+		move_to_wincmd = "K"
+	end
+	if term_type == "BOTTOM" then
+		desc = "Put [T]erminal window on the [B]ottom"
+		leader_key = "<leader>tb"
+		move_to_wincmd = "J"
+	end
+	keymap.set(vim_mode, leader_key, function()
+		vim.cmd.vnew()
+		vim.cmd.term()
+		vim.cmd.wincmd(move_to_wincmd)
+		vim.cmd(":startinsert")
+		if is_mini then
+			vim.api.nvim_win_set_height(0, 10)
+		end
+	end, { desc = desc })
+end
+create_terminal_keymap("TOP", "")
+create_terminal_keymap("BOTTOM", "")
+create_terminal_keymap("LEFT", "")
+create_terminal_keymap("RIGHT", "")
+create_terminal_keymap("MINI", "")
+
 
 -------------------------------------------------------------------------------
 ----------------------------------------LSP------------------------------------
