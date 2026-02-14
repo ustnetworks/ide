@@ -20,7 +20,7 @@ return {
 			lsp_format = "fallback",
 		},
 		-- Set up format-on-save
-		format_on_save = { timeout_ms = 500 },
+		format_on_save = { timeout_ms = 2500 },
 		-- Customize formatters
 		formatters = {
 			shfmt = {
