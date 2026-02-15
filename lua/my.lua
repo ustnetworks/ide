@@ -25,6 +25,7 @@ M.InstallMyMasonPackage = function(package)
 		"eslint_d", -- improve eslint performance
 		"lua-language-server", -- LSP
 		"prettierd", -- Formatter for CSS, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML
+		"css-lsp", -- CSS
 		"pyright", -- LSP for python
 		"ruff", -- LSP + Linter for python
 		"stylua", -- Formatter for Lua
