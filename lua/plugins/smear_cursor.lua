@@ -3,7 +3,7 @@ return {
 	opts = {
 		-- cursor_color = "#ff4000",
 		particles_enabled = false,
-		stiffness = 0.5,
+		stiffness = 0.6,
 		trailing_stiffness = 0.2,
 		trailing_exponent = 5,
 		damping = 0.6,
