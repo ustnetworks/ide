@@ -26,7 +26,7 @@ M.InstallMyMasonPackage = function(package)
 		"lua-language-server", -- LSP
 		"prettierd", -- Formatter for CSS, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML
 		"css-lsp", -- CSS
-		"pyright", -- LSP for python
+		"ty", -- LSP for python
 		"ruff", -- LSP + Linter for python
 		"stylua", -- Formatter for Lua
 		"typescript-language-server", --TypeScript & JavaScript Language Server
