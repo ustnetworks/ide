@@ -1,5 +1,11 @@
 local M = {}
 
+vim.api.nvim_create_user_command("MyFind", function(args)
+	local builtin = require("telescope.builtin")
+	local cwd = args["args"]
+	builtin.find_files({ cwd = cwd })
+end, { desc = "Find Files in the provided directory", nargs = "*", complete = "file" })
+
 vim.api.nvim_create_user_command("MyTreesitter", function()
 	M.MyTreesitter()
 end, { desc = "Setup treesiter", nargs = "*" })
