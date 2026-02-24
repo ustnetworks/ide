@@ -14,6 +14,7 @@ return {
 			python = { "ruff_format", "ruff_fix" },
 			javascript = { "prettierd", stop_after_first = true },
 			html = { "prettierd" },
+			css = { "prettierd" },
 		},
 		-- Set default options
 		default_format_opts = {
