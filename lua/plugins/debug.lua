@@ -20,6 +20,10 @@ function M.set_keymaps()
 		dap.restart()
 	end, { desc = "DAP Restart" })
 
+	vim.keymap.set("n", "<Leader>dk", function()
+		require("dap.ui.widgets").hover()
+	end, { desc = "Hover" })
+
 	vim.keymap.set("n", "<Leader>du", function()
 		dapui.toggle()
 	end, { desc = "Toggle Debug UI" })

@@ -14,10 +14,6 @@ vim.api.nvim_create_user_command("MyInstallMasonPackage", function(args)
 	M.InstallMyMasonPackage(args["args"])
 end, { desc = "Install Mason Package(s)", nargs = "*" })
 
-vim.api.nvim_create_user_command("MyInitVSCode", function(args)
-	M.InitVSCode(args["args"])
-end, { desc = "Init .vscode launch file", nargs = "*" })
-
 M.MyTreesitter = function()
 	local parsers = { "python", "javascript", "lua", "bash", "c", "html", "css", "markdown" }
 	for _, value in ipairs(parsers) do
