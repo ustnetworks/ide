@@ -100,6 +100,14 @@ end, { desc = "Open File Explorer" })
 
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
 	callback = function()
+		vim.keymap.set("n", "<Leader>ls", function()
+			require("telescope.builtin").lsp_document_symbols({
+				layout_strategy = "bottom_pane", -- docks the picker at the bottom
+				layout_config = {
+					height = 0.4, -- use 40% of screen height (adjust as desired)
+				},
+			})
+		end, { desc = "Show LSP document symbols in bottom pane" })
 		keymap.set("n", "<leader>ld", function()
 			vim.lsp.buf.definition()
 		end, { desc = "Go to [D]efinition" })
@@ -118,7 +126,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			vim.cmd(":Trouble diagnostics toggle")
 		end, { desc = "Diagnostics (All)" })
 
-		keymap.set("n", "<leader>ls", function()
+		keymap.set("n", "<leader>lk", function()
 			vim.cmd(":Trouble symbols toggle")
 		end, { desc = "Document Symbols" })
 
